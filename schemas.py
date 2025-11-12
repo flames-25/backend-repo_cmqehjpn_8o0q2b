@@ -14,8 +14,18 @@ Model name is converted to lowercase for the collection name:
 from pydantic import BaseModel, Field
 from typing import Optional
 
-# Example schemas (replace with your own):
+# Core app schemas
 
+class Todo(BaseModel):
+    """
+    Todos collection schema
+    Collection name: "todo" (lowercase of class name)
+    """
+    title: str = Field(..., min_length=1, max_length=200, description="Task title")
+    completed: bool = Field(False, description="Completion status")
+
+
+# Example schemas (kept for reference and future extension)
 class User(BaseModel):
     """
     Users collection schema
@@ -37,9 +47,6 @@ class Product(BaseModel):
     price: float = Field(..., ge=0, description="Price in dollars")
     category: str = Field(..., description="Product category")
     in_stock: bool = Field(True, description="Whether product is in stock")
-
-# Add your own schemas here:
-# --------------------------------------------------
 
 # Note: The Flames database viewer will automatically:
 # 1. Read these schemas from GET /schema endpoint
